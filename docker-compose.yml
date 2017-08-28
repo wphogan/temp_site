@@ -1,0 +1,24 @@
+wordpress-wpcli-xdebug:
+  image: wphogan/docker-wordpress-wpcli-xdebug
+  links:
+    - wordpress_db:mysql
+  ports:
+    - 80:80
+  volumes:
+    - ./wordpress:/var/www/html
+wordpress_db:
+  image: mariadb
+  ports:
+    - 8080:3306
+  environment:
+    MYSQL_ROOT_PASSWORD: qwerty
+  volumes:
+      - ./mysql:/var/lib/mysql
+phpmyadmin:
+  image: corbinu/docker-phpmyadmin
+  links:
+    - wordpress_db:mysql
+  ports:
+    - 8181:80
+  environment:
+    MYSQL_ROOT_PASSWORD: qwerty

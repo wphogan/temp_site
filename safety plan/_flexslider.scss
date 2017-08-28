@@ -1,0 +1,358 @@
+/*
+ * jQuery FlexSlider v2.4.0
+ * http://www.woothemes.com/flexslider/
+ *
+ * Copyright 2012 WooThemes
+ * Free to use under the GPLv2 and later license.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Contributing author: Tyler Smith (@mbmufffin)
+ * 
+ */
+/* ====================================================================================================================
+ * FONT-FACE
+ * ====================================================================================================================*/
+@font-face {
+    font-weight: normal;
+    font-style: normal;
+    font-family: 'flexslider-icon';
+    src: url('../../fonts/flexslider-icon.eot');
+    src: url('../../fonts/flexslider-icon.eot?#iefix') format('embedded-opentype'), url('../../fonts/flexslider-icon.woff') format('woff'), url('../../fonts/flexslider-icon.ttf') format('truetype'), url('../../fonts/flexslider-icon.svg#flexslider-icon') format('svg');
+}
+/* ====================================================================================================================
+ * RESETS
+ * ====================================================================================================================*/
+.flex-container a:hover, .flex-slider a:hover, .flex-container a:focus, .flex-slider a:focus {
+    outline: none;
+}
+.slides, .slides > li, .flex-control-nav, .flex-direction-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.flex-pauseplay span {
+    text-transform: capitalize;
+}
+/* ====================================================================================================================
+ * BASE STYLES
+ * ====================================================================================================================*/
+.flexslider {
+    margin: 0;
+    padding: 0;
+}
+.flexslider .slides > li {
+    display: none;
+
+    -webkit-backface-visibility: hidden;
+}
+.flexslider .slides img {
+    display: block;
+    width: 100%;
+}
+.flexslider .slides:after {
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+    content: '\0020';
+    line-height: 0;
+}
+html[xmlns] .flexslider .slides {
+    display: block;
+}
+* html .flexslider .slides {
+    height: 1%;
+}
+.no-js .flexslider .slides > li:first-child {
+    display: block;
+}
+/* ====================================================================================================================
+ * DEFAULT THEME with some CUSTOMIZATIONS
+ * ====================================================================================================================*/
+.flexslider {
+    position: relative;
+    margin: 0;
+    background: #FFF;
+    zoom: 1;
+    border: 0;
+}
+.home .flexslider {
+    margin-bottom: 0;
+}
+.flexslider .slides {
+    zoom: 1;
+}
+.flexslider .slides img {
+    height: auto;
+}
+.flex-viewport {
+    max-height: 2000px;
+    -webkit-transition: all 1s ease;
+       -moz-transition: all 1s ease;
+        -ms-transition: all 1s ease;
+         -o-transition: all 1s ease;
+            transition: all 1s ease;
+}
+.loading .flex-viewport {
+    max-height: 300px;
+}
+.carousel li {
+    margin-right: 5px;
+}
+.flex-direction-nav {
+    *height: 0;
+}
+.flex-direction-nav a {
+    position: absolute;
+    top: 40%;
+    z-index: 10;
+    display: block;
+    overflow: hidden;
+    margin: -20px 0 0;
+    width: 40px;
+    height: 40px;
+    color: rgba(0, 0, 0, 0);
+    text-decoration: none;
+    opacity: 0;
+    cursor: pointer;
+    -webkit-transition: all .3s ease-in-out;
+       -moz-transition: all .3s ease-in-out;
+        -ms-transition: all .3s ease-in-out;
+         -o-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+}
+.flex-direction-nav a:before {
+    display: inline-block;
+    color: rgba(white, .8);
+    content: '\f104';
+    font-size: 20px;
+    font-family: 'fontAwesome';
+    line-height: 40px;
+}
+.flex-direction-nav a.flex-next:before {
+    content: '\f105';
+}
+.flex-direction-nav .flex-prev {
+    left: -50px;
+}
+.flex-direction-nav .flex-next {
+    right: -50px;
+    text-align: right;
+}
+.flexslider:hover .flex-direction-nav .flex-prev {
+    left: 10px;
+    opacity: .7;
+}
+.flexslider:hover .flex-direction-nav .flex-prev:hover {
+    opacity: 1;
+}
+.flexslider:hover .flex-direction-nav .flex-next {
+    opacity: .7;
+}
+.flexslider:hover .flex-direction-nav .flex-next:hover {
+    opacity: 1;
+}
+.flex-direction-nav .flex-disabled {
+    opacity: 0!important;
+    filter: alpha(opacity=0);
+    cursor: default;
+}
+.flex-pauseplay a {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    z-index: 10;
+    display: block;
+    overflow: hidden;
+    width: 20px;
+    height: 20px;
+    color: #000;
+    opacity: .8;
+    cursor: pointer;
+}
+.flex-pauseplay a:before {
+    display: inline-block;
+    content: '\f004';
+    font-size: 20px;
+    font-family: 'flexslider-icon';
+}
+.flex-pauseplay a:hover {
+    opacity: 1;
+}
+.flex-pauseplay a .flex-play:before {
+    content: '\f003';
+}
+.flex-control-nav {
+    position: absolute;
+    bottom: -40px;
+    width: 100%;
+    text-align: center;
+}
+.flex-control-nav li {
+    display: inline-block;
+    margin: 0 6px;
+    zoom: 1;
+
+    *display: inline;
+}
+.flex-control-paging li a {
+    display: block;
+    width: 11px;
+    height: 11px;
+    -webkit-border-radius: 20px;
+       -moz-border-radius: 20px;
+            border-radius: 20px;
+    background: #666;
+    background: rgba(0, 0, 0, .5);
+    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+       -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+            box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+    text-indent: -9999px;
+    cursor: pointer;
+
+         -o-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+}
+.flex-control-paging li a:hover {
+    background: #333;
+    background: rgba(0, 0, 0, .7);
+}
+.flex-control-paging li a.flex-active {
+    background: #000;
+    background: rgba(0, 0, 0, .9);
+    cursor: default;
+}
+.flex-control-thumbs {
+    position: static;
+    overflow: hidden;
+    margin: 5px 0 0;
+}
+.flex-control-thumbs li {
+    float: left;
+    margin: 0;
+    width: 25%;
+}
+.flex-control-thumbs img {
+    display: block;
+    width: 100%;
+    height: auto;
+    opacity: .7;
+    cursor: pointer;
+    -webkit-transition: all 1s ease;
+       -moz-transition: all 1s ease;
+        -ms-transition: all 1s ease;
+         -o-transition: all 1s ease;
+            transition: all 1s ease;
+}
+.flex-control-thumbs img:hover {
+    opacity: 1;
+}
+.flex-control-thumbs .flex-active {
+    opacity: 1;
+    cursor: default;
+}
+
+/* Custom Styles */
+.flexslider .slides > li {
+    position: relative;
+}
+.slide-caption {
+    @include font-smoothing;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    background: initial;
+    h3, h4 {
+        margin: 0;
+        color: #000;
+    }
+    h3 {
+        font-size: 24px;
+        line-height: 28px;    
+        font-weight: bold;
+        
+    }
+    h4 {
+        margin-top: 10px;
+        font-size: 16px;
+        font-family: $font-stack;
+        line-height: 19px;
+        font-weight: 400;
+    }
+    &__inner-wrapper {
+         background: rgba(white, .5);
+         padding: 20px;
+    }
+    .btn {
+        display: block;
+        margin: 12px auto 8px;
+    }
+}
+
+
+.flex-control-nav {
+    display: none;
+}
+
+
+/* ====================================================================================================================
+ * RESPONSIVE
+ * ====================================================================================================================*/
+@media screen and (max-width: 860px) {
+    .flex-direction-nav .flex-prev {
+        left: 10px;
+        opacity: 1;
+    }
+    .flex-direction-nav .flex-next {
+        right: -20px;
+        opacity: 1;
+    }
+}
+
+
+/* Tablet ***************************************************************/
+@include tablet {
+    .slide-caption {
+        &__inner-wrapper {
+            width: 33%;
+        }
+    }
+    .flex-direction-nav a {
+        top: 60%;
+    }
+    .flex-direction-nav a:before, .flex-pauseplay a:before {
+        font-size: 30px;
+    }
+} //end tablet
+
+/* Tablet-landscape ******************************************************/
+@include tablet-landscape {
+} //end tablet-landscape
+
+/* Desktop ******************************************************/
+@include desktop {
+    .slide-caption {
+        bottom: 15%;
+        max-width: $max-container;
+        margin: 0 auto;
+        display: block;
+        h3 {
+
+        }
+        h4 {
+
+        }
+    }
+    .flex-direction-nav a {
+        width: 51px;
+        height: 140px;
+    }
+    .flex-direction-nav a:before, .flex-pauseplay a:before {
+        position: relative;
+        top: 15px;
+        font-size: 130px;
+    }
+    .flex-direction-nav .flex-next {
+        right: 10px;
+    }
+} //end desktop

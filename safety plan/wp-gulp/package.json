@@ -1,0 +1,51 @@
+{
+  "name": "wp-gulp",
+  "version": "0.1.0",
+  "description": "Gulp configuration for WordPress themes",
+  "sasslintConfig": "./config/sass_lint_config.yml",
+  "main": "gulpfile.js",
+  "scripts": {
+    "postinstall" : "./install.js"
+  },
+  "author": "Bill Hogan",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "",
+    "gulp-autoprefixer": "",
+    "gulp-cache": "",
+    "gulp-clean-css": "",
+    "gulp-compass": "",
+    "gulp-concat": "",
+    "gulp-contains": "",
+    "gulp-csscomb": "",
+    "gulp-sass-glob": "",
+    "gulp-imagemin": "",
+    "gulp-insert": "",
+    "gulp-livereload": "",
+    "gulp-load-plugins": "",
+    "gulp-notify": "",
+    "gulp-pxtorem": "",
+    "gulp-plumber": "",
+    "gulp-rename": "",
+    "gulp-sass": "",
+    "gulp-sass-lint": "",
+    "gulp-shell": "",
+    "gulp-sourcemaps": "",
+    "gulp-uglify": "",
+    "gulp-uncss": "",
+    "require-dir": "",
+    "pa11y": ""
+  },
+  "dependencies": {
+    "prompt": "",
+    "fs": ""
+    },
+  "repository": {
+  },
+  "keywords": [
+
+  ],
+  "bugs": {
+
+  }
+}
